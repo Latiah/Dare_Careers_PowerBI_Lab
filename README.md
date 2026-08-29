@@ -4,14 +4,16 @@ Tracks student progress across two training tracks — **Power BI Training** and
 
 ## Data Model
 
-Four tables, connected through a central **Learners** table (by Email):
+Data Model
 
-- **Learners** — Name, Email, Track, Cohort, Graduation Status, Certification Status, Program Status
-- **Attendance** — daily Zoom records, Duration_Minutes, Attended/Absent
-- **Assessments** — weekly Lab & Quiz scores
-- **Participation** — daily participation records
+Six tables, built as a star schema with two shared dimensions (Learners and WeekDim/DateTable) connecting three fact tables:
 
-**Attendance rule**: marked "Attended" only if session duration > 30 minutes.
+Learners — Name, Email, Track, Cohort, Graduation Status, Certification Status, Program Status (dimension — one row per learner)
+DateTable — Date, Week (dimension — one row per class date)
+dim_week— Week, Month (dimension — one row per program week; sits upstream of DateTable and Assessments)
+Attendance — daily Zoom records, Duration_Minutes, Attended/Absent (fact)
+Assessments — weekly Lab & Quiz scores (fact)
+Participation — daily participation records (fact)
 
 ## Pages
 
